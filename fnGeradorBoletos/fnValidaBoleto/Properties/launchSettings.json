@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "fnValidaBoleto": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7220",
+      "launchBrowser": false
+    }
+  }
+}

@@ -71,21 +71,22 @@ npm start
 Request:
 
 ```json
-POST /api/barcode-generate
+POST /api/barcode-generate 
 {
-  "valor": 150.75,
-  "vencimento": "2025-12-31",
-  "beneficiario": "Empresa XYZ",
-  "pagador": "Cliente ABC"
+
+"dataVencimento" : "2025-04-10",
+"valor": "200"
+
 }
 ```
 Response:
 
 ```json
 {
-  "codigoBarras": "34191790010104351004791020150008785770000000150",
-  "linhaDigitavel": "34191.09102 20150.008785 57700.000001 1 79001010435",
-  "pdfBase64": "JVBERi0xLjQK..."
+    "barcode": "1234567890",
+    "valorOriginal": "100.00",
+    "dataVencimento": "2025-04-24T19:23:42.1419907-04:00",
+    "imagemBase64": "iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAABHNCSVQICAgIfAhkiAAAAk9JREFUeJzt1EEKwjAUQMHE+985rgJFrFQE5eHMrs1vKKF9c621xkVzzjHGGGutMecc+9F9f689mz1b29ev9vxk36vX39j33dnHszmexavZs2c/fR+z/zn7+E0d148zZ2vb8R9/NnvF7a1pgB8SLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIuAMS7+koQadzMQAAAABJRU5ErkJggg=="
 }
 ```
 Validação de Boleto
@@ -94,7 +95,7 @@ Request:
 ```json
 POST /api/barcode-validate
 {
-  "codigoBarras": "34191790010104351004791020150008785770000000150"
+  "barcode": "34191790010104351004791020150008785770000000150"
 }
 
 ```
@@ -102,12 +103,8 @@ Response:
 
 ```json
 {
-  "valido": true,
-  "detalhes": {
-    "valor": 150.75,
-    "vencimento": "2025-12-31",
-    "beneficiario": "Empresa XYZ"
-  }
+    "valido": false,
+    "mensagem": "O campo barcode deve ter 44 caracteres"
 }
 ```
 ##🏗️ Estrutura do Projeto
@@ -142,36 +139,55 @@ Response:
 
 ## 📸 Telas da aplicação e procedimentos
 
-### Codificação de API
-![Tela da aplicação](assets/01-criando-a-api.png)
+### Criacao da function gera boleto
+![Tela da aplicação](/assets/02-criacao-da-function-gera-boleto.png)
 
 
-### Publicação da API
-![Tela da aplicação](assets/02-publicacao-da-api.png)
+### Instalação de dependências
+![Tela da aplicação](/assets/03-instalacao-de-dependencias.png)
 
-### Um pequeno erro,ops!
-![Tela da aplicação](assets/03-erro-deploy-do-apim.png)
+### Criando do Service Bus
+![Tela da aplicação](/assets/04-criando-service-bus.png)
 
-### Criação do apim concluída
-![Tela da aplicação](assets/04-criacao-do-apim-concluida.png)
+### Implementando a funcao gera codigo de barras
+![Tela da aplicação](/assets/05-implementando-a-funcao-gera-codigo-de-barras.png)
 
-### API acessível publicamente
-![Tela da aplicação](assets/05-api-acessivel-publicamente.png)
+### Testando com Postman
+![Tela da aplicação](/assets/06-testando-com-postman.png)
 
-### Testes da API via Postman
-![Tela da aplicação](assets/06-testes-da-api-via-postman.png)
+### Verificando a Fila
+![Tela da aplicação](/assets/07-verificando-fila.png)
 
-### Alterando e Configurando
-![Tela da aplicação](assets/07-alterando-e-configurando-acesso-a-api.png)
+### Verificando a fila detalhes
+![Tela da aplicação](/assets/08-verificando-fila-detalhes.png)
 
-### Limitando Acesso via CORS
-![Tela da aplicação](assets/08-limitando-acesso-a-api-via-cors.png)
+### Verificando o corpo da mensagem
+![Tela da aplicação](/assets/09-verificando-corpo-da-mensagem.png)
 
-### Alterando Políticas de Inbound
-![Tela da aplicação](assets/09-alterando-politicas-inbound.png)
+### Testando o barcode no postman
+![Tela da aplicação](/assets/10-testando-barcode-no-postman.png)
 
-### Testando as Limitações de Permissões
-![Tela da aplicação](assets/10-testando-as-limitacoes-de-permissoes.png)
+### Converter base64 para imagem
+![Tela da aplicação](/assets/11-converter-base64-para-imagem.png)
+
+### Tela de front end html
+![Tela da aplicação](/assets/12-criando-tela-de-front-para-gerar-boletos.png)
+
+### Tela de front end web
+![Tela da aplicação](/assets/12.1-criando-tela-de-front-para-gerar-boletos.png)
+
+### Validando Boleto Function
+![Tela da aplicação](/assets/13-valida-boletos.png)
+
+### Validando Boleto Code
+![Tela da aplicação](/assets/13.1-valida-boletos.png)
+
+### Validando Boleto no Postman
+![Tela da aplicação](/assets/13.3-valida-boletos-no-postman.png)
+
+### Solution Visual Studio
+![Tela da aplicação](/assets/13.2-tela-da-solution.png)
+
 
 ---
 
